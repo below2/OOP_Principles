@@ -1,7 +1,7 @@
 // Andrew Rosscoe
 // Brendan Benlolo
 // COSC436-002
-// 04/12/2023
+// 05/19/2023
 public class Menu {
 
     static final int MAX_ITEMS = 100;
@@ -29,141 +29,14 @@ public class Menu {
         return items;
     }
 
-    // public void delete(MenuIterator itr) {
+    public String[] getMenuOutput() {
+        String[] menu = new String[MAX_ITEMS];
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null) {
+                menu[i] = items[i].toString();
+            }
+        }
 
-    // AllItemsIterator itemsIterator = (AllItemsIterator) itr;
-    // int indexToDelete = itemsIterator.i - 1;
-
-    // for (int i = indexToDelete; i < items.length - 1; i++) {
-    // items[i] = items[i + 1];
-    // }
-    // if (items.length == MAX_ITEMS) {
-    // items[items.length - 1] = null;
-    // }
-    // itemIndex--;
-    // }
-
-    // public MenuIterator getAllItemsIterator() {
-    // return new AllItemsIterator();
-    // }
-
-    // public MenuIterator getItemIterator(int category) {
-    // return new ItemIterator(category);
-    // }
-
-    // public MenuIterator getHeartHealthyIterator(boolean healthValue) {
-    // return new HeartHealthyIterator(healthValue);
-    // }
-
-    // public MenuIterator getPriceIterator(double price) {
-    // return new PriceIterator(price);
-    // }
-
-    // Iterate over all Menu items
-    // private class AllItemsIterator implements MenuIterator {
-    // private int i; // index
-
-    // public boolean hasNext() {
-
-    // return !(i >= items.length || items[i] == null);
-    // }
-
-    // public MenuItem next() {
-
-    // return items[i++];
-    // }
-    // }
-
-    // // Iterates over specific category of menu items
-    // private class ItemIterator implements MenuIterator {
-    // private int i; // index
-    // private int category; //food category
-
-    // public ItemIterator(int category) {
-
-    // this.category = category;
-    // }
-
-    // public boolean hasNext() {
-
-    // return !(i >= items.length || items[i] == null) && filter();
-    // }
-
-    // public boolean filter() {
-
-    // if (items[i].getCategory() == category) {
-    // return true;
-    // } else {
-    // i++;
-    // return hasNext();
-    // }
-    // }
-
-    // public MenuItem next() {
-
-    // return items[i++];
-
-    // }
-    // }
-
-    // // Iterates over the heart healthy items
-    // private class HeartHealthyIterator implements MenuIterator {
-    // private int i; // index
-    // private boolean healthValue;
-
-    // public HeartHealthyIterator(boolean healthValue) {
-
-    // this.healthValue = healthValue;
-    // }
-
-    // public boolean hasNext() {
-
-    // return !(i >= items.length || items[i] == null) && filter();
-    // }
-
-    // public boolean filter() {
-    // if (items[i].isHeartHealthy() == healthValue) {
-    // return true;
-    // } else {
-    // i++;
-    // return hasNext();
-    // }
-    // }
-
-    // public MenuItem next() {
-
-    // return items[i++];
-    // }
-    // }
-
-    // // Iterates over the main dishes that are under a price chosen by user
-    // private class PriceIterator implements MenuIterator {
-    // double priceCapacity;
-    // private int i;
-
-    // public PriceIterator(double priceCapacity) {
-
-    // this.priceCapacity = priceCapacity;
-    // }
-
-    // public boolean hasNext() {
-
-    // return !(i >= items.length || items[i] == null) && filter();
-    // }
-
-    // public boolean filter() {
-
-    // if (items[i].getPrice() <= priceCapacity) {
-    // return true;
-    // } else {
-    // i++;
-    // return hasNext();
-    // }
-    // }
-
-    // public MenuItem next() {
-
-    // return items[i++];
-    // }
-    // }
+        return menu;
+    }
 }

@@ -1,13 +1,17 @@
 // Andrew Rosscoe
 // Brendan Benlolo
 // COSC436-002
-// 04/12/2023
+// 05/19/2023
 public class OrderItem {
 
     private int itemNum;
 
     public OrderItem(int itemNum) {
         this.itemNum = itemNum;
+    }
+
+    public int getItemNum() {
+        return itemNum;
     }
 
     public String toString() {

@@ -1,7 +1,7 @@
 // Andrew Rosscoe
 // Brendan Benlolo
 // COSC436-002
-// 04/12/2023
+// 05/19/2023
 public class MenuItem {
 
     private int itemNum;
@@ -27,6 +27,6 @@ public class MenuItem {
     }
 
     public String toString() {
-        return ("Item #" + itemNum + ", $" + price + "\n" + description);
+        return ("Item #" + itemNum + ": " + description + " $" + price);
     }
 }

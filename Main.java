@@ -1,46 +1,45 @@
-
-// Brendan Benlolo
 // Andrew Rosscoe
+// Brendan Benlolo
 // COSC436-002
-// 04/12/2023
+// 05/19/2023
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        // Initialize menu and add "dummy" items to it.
-        Menu fancyMenu = new Menu();
-        fancyMenu.add(1, "Ribeye", 49.99);
-        fancyMenu.add(2, "Flan", 8.50);
-        fancyMenu.add(3, "Carbonara", 24.99);
-        fancyMenu.add(4, "Lobster", 52.99);
-        fancyMenu.add(5, "Salad", 7.99);
-        fancyMenu.add(6, "Cheesecake", 9.00);
-        fancyMenu.add(7, "Shrimp", 13.00);
-
-        // Save String for menu tasks
-        String menuTasks = "\n\tFANCY MENU CHOICES\n\n"
+        String menuTasks = "\n\tFANCY MENU CHOICES\n"
                 + "1 - Display all menu items\n"
                 + "2 - Submit an order\n"
                 + "3 - Display tab\n"
+                + "4 - Pay tab\n"
+                + "5 - Show ordering stats\n"
                 + "0 - EXIT\n";
 
-        // Scanner userInput = new Scanner(System.in);
         boolean exit = false;
-        MenuIterator iterator;
 
         do {
-            int choice = menu(menuTasks, "Please enter an option number: ", 0, 8);
+            int choice = menu(menuTasks, "Please enter an option number: ", 0, 5);
             switch (choice) {
-
-                // Display all menu items
                 case 1:
-                    iterator = fancyMenu.getAllItemsIterator();
-                    iteratorPrinter("ENTIRE MENU", iterator);
+                    SystemInterface.displayMenu();
                     break;
+                case 2:
+                    System.out.print("Please enter the item number you would like to order: ");
+                    Scanner cin = new Scanner(System.in);
+                    int itemNum = cin.nextInt();
 
-                // EXIT PROGRAM
+                    SystemInterface.submitOrder(itemNum);
+                    break;
+                case 3:
+                    SystemInterface.displayTab();
+                    break;
+                case 4:
+                    boolean paymentType = validatePayment("Would you like to pay with cash? (true/false): ");
+                    SystemInterface.payTab(paymentType);
+                    break;
+                case 5:
+                    SystemInterface.showStats();
+                    break;
                 case 0:
                     exit = true;
                     break;
@@ -48,25 +47,30 @@ public class Main {
         } while (!exit);
     }
 
+    private static boolean validatePayment(String prompt) {
+
+        System.out.println("WARNING: Paying with card adds a 5% surcharge to your bill");
+        System.out.print(prompt);
+
+        Scanner input = new Scanner(System.in);
+        while (!input.hasNextBoolean()) {
+            input.next();
+            System.out.println("Invalid Choice, Please enter true or false.");
+            System.out.print(prompt);
+        }
+        return input.nextBoolean();
+    }
+
     private static int validateChoice(Scanner input, String prompt) {
 
-        System.out.println(prompt);
+        System.out.print(prompt);
 
         while (!input.hasNextInt()) {
             input.next();
-            System.out.println("Invalid Choice, Please enter a number from 0-8.");
-            System.out.println(prompt);
+            System.out.println("Invalid Choice, Please enter a number from 0-5.");
+            System.out.print(prompt);
         }
         return input.nextInt();
-    }
-
-    private static void iteratorPrinter(String display, MenuIterator itr) {
-        System.out.println(display);
-        MenuItem item;
-        while (itr.hasNext()) {
-            item = itr.next();
-            System.out.println(item.toString());
-        }
     }
 
     private static int menu(String menuTasks, String displayString, int min, int max) {
@@ -78,7 +82,7 @@ public class Main {
         int input = validateChoice(scanner, displayString);
 
         while (min > input || input > max) {
-            System.out.println(input + " is not an option, Please input a number from 0-8");
+            System.out.println(input + " is not an option, Please input a number from 0-5");
             input = validateChoice(scanner, displayString);
         }
 
