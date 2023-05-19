@@ -17,12 +17,12 @@ public class Tab {
     public String[] getTab() {
         Orders orders = aggregator.getOrders();
         Menu menu = aggregator.getMenu();
-        String[] tab = new String[orders.getOrderItems().length + 1];
+        String[] tab = new String[orders.getCurrentOrderItems().length + 1];
 
         double total = 0;
         int i = 0;
 
-        for (OrderItem order : orders.getOrderItems()) {
+        for (OrderItem order : orders.getCurrentOrderItems()) {
             for (MenuItem menuItem : menu.getMenuItems()) {
                 if (order != null && menuItem != null && order.getItemNum() == menuItem.getItemNum()) {
                     tab[i] = "Tab: Item #" + order.getItemNum() + " " + menuItem.getDescription() + " $"
@@ -46,11 +46,11 @@ public class Tab {
     public ArrayList<String> showStats() {
         Orders orders = aggregator.getOrders();
         Menu menu = aggregator.getMenu();
-        MenuItem[] orderedMenuItems = new MenuItem[orders.getOrderItems().length];
+        MenuItem[] orderedMenuItems = new MenuItem[orders.getAllOrderItems().length];
         ArrayList<String> stats = new ArrayList<String>();
         int i = 0;
 
-        for (OrderItem orderItem : orders.getOrderItems()) {
+        for (OrderItem orderItem : orders.getAllOrderItems()) {
             for (MenuItem menuItem : menu.getMenuItems()) {
                 if (orderItem != null && menuItem != null && orderItem.getItemNum() == menuItem.getItemNum()) {
                     orderedMenuItems[i] = menuItem;
@@ -73,7 +73,7 @@ public class Tab {
             if (entry.getKey() != null) {
                 String element = entry.getKey().toString();
                 int count = entry.getValue();
-                stats.add("Element: " + element + ", Count: " + count);
+                stats.add(element + ", Count: " + count);
             }
         }
 
@@ -85,7 +85,7 @@ public class Tab {
         Menu menu = aggregator.getMenu();
         double total = 0;
 
-        for (OrderItem order : orders.getOrderItems()) {
+        for (OrderItem order : orders.getCurrentOrderItems()) {
             for (MenuItem menuItem : menu.getMenuItems()) {
                 if (order != null && menuItem != null && order.getItemNum() == menuItem.getItemNum()) {
                     total += menuItem.getPrice();
